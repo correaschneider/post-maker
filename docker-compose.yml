@@ -1,0 +1,15 @@
+version: '3.2'
+
+services:
+    robot:
+        image: node:12.7-buster
+        working_dir: /src
+        ports:
+            - 3030:3030
+        volumes:
+            - ./src:/src
+            - node_modules:/src/node_modules
+        command: bash -c "sleep 36000"
+
+volumes:
+    node_modules:
