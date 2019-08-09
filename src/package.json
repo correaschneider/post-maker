@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "readline-sync": "^1.4.10",
-    "rss-parser": "^3.7.2"
+    "google-trends-api": "^4.9.0",
+    "readline-sync": "^1.4.10"
   },
   "devDependencies": {},
   "scripts": {

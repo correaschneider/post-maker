@@ -1,5 +1,5 @@
 const fs = require('fs')
-const contentFilePath = './content.json'
+const contentFilePath = `./content/content${new Date().getFullYear()}${new Date().getMonth()}${new Date().getDate()}.json`
 
 function save(content) {
   const contentString = JSON.stringify(content, '', 4)
