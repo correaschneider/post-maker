@@ -1,12 +1,12 @@
 const readLine = require('readline-sync')
-const GoogleTrendsApi = require('google-trends-api')
+// const GoogleTrendsApi = require('google-trends-api')
 const state = require('./state')
 
 async function robot() {
 	let content = {}
 
-	let searchTerm = askAndReturnSearchTerm()
-	content.searchTerm = await askAndReturnTrend(searchTerm)
+	content.searchTerm = askAndReturnSearchTerm()
+	// content.trendTopSelected = await askAndReturnTrend(content.searchTerm)
 
 	state.save(content)
 
@@ -14,38 +14,43 @@ async function robot() {
 		return readLine.question('Digite o termo a ser buscado: ')
 	}
 
-	async function askAndReturnTrend(term) {
-		console.log('Aguarde ...')
+	// async function askAndReturnTrend(term) {
+	// 	console.log('Aguarde ...')
 
-		let trends = await getGoogleTrends(term)
+	// 	let trends = await getGoogleTrends(term)
 
-		let choice = readLine.keyInSelect(trends, 'Selecione um trend')
+	// 	if (trends.length == 0) {
+	// 		console.log('Opss, nenhum resultado encontrado')
+	// 		process.exit(0)
+	// 	}
 
-		return trends[choice].split(' - ')[0]
-	}
+	// 	let choice = readLine.keyInSelect(trends, 'Selecione um trend')
 
-	async function getGoogleTrends(term) {
-		let date = new Date()
-		date.setFullYear(date.getFullYear() - 1)
+	// 	return trends[choice].split(' - ')[0]
+	// }
 
-		return await GoogleTrendsApi.relatedQueries({
-				keyword: term,
-				geo: 'BR',
-				startTime: date
-			}, async (err, results) => {
-			if (err) {
-				console.log('Ocorreu um erro', err)
+	// async function getGoogleTrends(term) {
+	// 	let date = new Date()
+	// 	date.setFullYear(date.getFullYear() - 1)
 
-				process.exit(0)
-			}
+	// 	return await GoogleTrendsApi.relatedQueries({
+	// 			keyword: term,
+	// 			geo: 'BR',
+	// 			startTime: date
+	// 		}, async (err, results) => {
+	// 		if (err) {
+	// 			console.log('Opss, Ocorreu um erro', err)
 
-			results = JSON.parse(results)
+	// 			process.exit(0)
+	// 		}
 
-			let trends = await results.default.rankedList[1].rankedKeyword.map((keyword, i) => `${keyword.query} - ${keyword.value}`)
+	// 		results = JSON.parse(results)
 
-			return trends
-		})
-	}
+	// 		let trends = await results.default.rankedList[1].rankedKeyword.map((keyword, i) => `${keyword.query} - ${keyword.value}`)
+
+	// 		return trends
+	// 	})
+	// }
 }
 
 module.exports = robot
