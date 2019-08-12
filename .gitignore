@@ -62,4 +62,4 @@ typings/
 .next
 
 # Contents
-content/
+content/*.json
